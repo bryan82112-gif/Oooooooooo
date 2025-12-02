@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Flare 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 100px 2rem 50px;
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1e2a4a 0%, #2d1b4e 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .card p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 0.8rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: #4ade80;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #1e2a4a 0%, #2d1b4e 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-left: 5px solid #667eea;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-box p {
+            margin: 0.8rem 0;
+            line-height: 1.8;
+        }
+
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .game-item {
+            background: linear-gradient(135deg, #2a3f5f 0%, #3d2b5e 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .game-item:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .game-item h4 {
+            color: #a78bfa;
+            margin-bottom: 0.5rem;
+        }
+
+        .special-tag {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="showPage('home')">首頁</a></li>
+            <li><a href="#trial" onclick="showPage('trial')">試玩區</a></li>
+            <li><a href="#ps5" onclick="showPage('ps5')">PS5 GAMES</a></li>
+            <li><a href="#featured" onclick="showPage('featured')">精選遊戲</a></li>
+            <li><a href="#switch" onclick="showPage('switch')">SWITCH GAMES</a></li>
+            <li><a href="#peripherals" onclick="showPage('peripherals')">主機周邊</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首頁 -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>🎮 Dark Flare 2025</h1>
+            <p>體驗最新遊戲科技 | 探索無限可能</p>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>🕹️ 試玩區</h3>
+                <p>現場試玩最新單機遊戲</p>
+                <p>免預約，現場排隊即可</p>
+                <p>每次體驗 20 分鐘</p>
+            </div>
+
+            <div class="card">
+                <h3>🎯 PS5 專區</h3>
+                <p>Final Fantasy VII 等熱門大作</p>
+                <p>體驗次世代遊戲魅力</p>
+            </div>
+
+            <div class="card">
+                <h3>⭐ 精選遊戲</h3>
+                <p>GTA5、隻狼、最後生還者</p>
+                <p>年度必玩遊戲推薦</p>
+            </div>
+
+            <div class="card">
+                <h3>🎮 SWITCH 專區</h3>
+                <p>豐富遊戲陣容</p>
+                <p>限定版與特典商品</p>
+            </div>
+
+            <div class="card">
+                <h3>🖥️ 主機周邊</h3>
+                <p>PS4 / PS5 / Switch / Switch 2</p>
+                <p>最新主機與配件</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 3rem;">
+            <h3>👥 製作團隊</h3>
+            <p style="font-size: 1.2rem; text-align: center; line-height: 2;">
+                <strong>潘泰辰</strong> • <strong>蔡謹澤</strong> • <strong>戴柏宇</strong> • <strong>薛丞順</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- 試玩區 -->
+    <div id="trial" class="page">
+        <h2 class="section-title">🕹️ 試玩區</h2>
+        
+        <div class="info-box">
+            <h3>📋 試玩資訊</h3>
+            <p>🎮 <strong>攤位數量：</strong>1 個試玩攤位</p>
+            <p>🎯 <strong>遊戲類型：</strong>精選單機遊戲</p>
+            <p>⏰ <strong>試玩時間：</strong>每次 20 分鐘</p>
+            <p>📝 <strong>報名方式：</strong>現場排隊，無需預約</p>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>🎮 試玩攤位</h3>
+                <p>🌟 提供最新單機遊戲試玩體驗</p>
+                <p>⚡ 採用高規格遊戲設備</p>
+                <p>👥 現場工作人員協助指導</p>
+                <p>🎁 試玩即有機會獲得小禮物</p>
+                <div style="margin-top: 1rem;">
+                    <span class="badge">免費體驗</span>
+                    <span class="badge">現場排隊</span>
+                    <span class="badge">20分鐘/次</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📌 注意事項</h3>
+                <p>✓ 請於現場排隊等候</p>
+                <p>✓ 每人每次限時 20 分鐘</p>
+                <p>✓ 請愛護試玩設備</p>
+                <p>✓ 遵守現場工作人員指示</p>
+                <p>✓ 高峰時段可能需要等候</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PS5 GAMES專區 -->
+    <div id="ps5" class="page">
+        <h2 class="section-title">🎯 PS5 GAMES 專區</h2>
+
+        <div class="game-list">
+            <div class="game-item">
+                <h4>Final Fantasy VII Rebirth</h4>
+                <p>史詩級 RPG 冒險</p>
+                <span class="badge">熱門</span>
+                <p class="price">NT$ 1,990</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Spider-Man 2</h4>
+                <p>雙蜘蛛人並肩作戰</p>
+                <span class="badge">獨佔</span>
+                <p class="price">NT$ 2,190</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Horizon Forbidden West</h4>
+                <p>開放世界冒險</p>
+                <span class="badge">推薦</span>
+                <p class="price">NT$ 1,690</p>
+            </div>
+
+            <div class="game-item">
+                <h4>God of War Ragnarök</h4>
+                <p>北歐神話史詩</p>
+                <span class="badge">年度遊戲</span>
+                <p class="price">NT$ 2,190</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Demon's Souls</h4>
+                <p>重製版動作 RPG</p>
+                <span class="badge">經典</span>
+                <p class="price">NT$ 2,190</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Returnal</h4>
+                <p>科幻 Roguelike 射擊</p>
+                <span class="badge">獨佔</span>
+                <p class="price">NT$ 2,190</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Resident Evil Village</h4>
+                <p>恐怖生存冒險</p>
+                <span class="badge">熱門</span>
+                <p class="price">NT$ 1,990</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Gran Turismo 7</h4>
+                <p>真實賽車模擬</p>
+                <span class="badge">競速</span>
+                <p class="price">NT$ 2,190</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Uncharted: Legacy Collection</h4>
+                <p>冒險動作經典合集</p>
+                <span class="badge">合集</span>
+                <p class="price">NT$ 1,490</p>
+            </div>
+
+            <div class="game-item">
+                <h4>Elden Ring</h4>
+                <p>開放世界魂系巨作</p>
+                <span class="badge">年度遊戲</span>
+                <p class="price">NT$ 1,890</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 3rem;">
+            <h3>💡 PS5 遊戲特色</h3>
+            <p>⚡ 支援光線追蹤技術，畫面更真實</p>
+            <p>🎮 DualSense 控制器觸覺回饋體驗</p>
+            <p>⏱️ 超高速 SSD 讀取，幾乎零等待</p>
+            <p>🔊 3D 音效技術，沉浸感十足</p>
+        </div>
+    </div>
+
+    <!-- 精選遊戲 -->
+    <div id="featured" class="page">
+        <h2 class="section-title">⭐ 精選遊戲</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>🌟 GTA V (俠盜獵車手 5)</h3>
+                <p><strong>精選理由：</strong>全球暢銷超過 1.9 億套</p>
+                <p>📊 <strong>評分：</strong>Metacritic 96/100</p>
+                <p>🎮 <strong>類型：</strong>開放世界動作冒險</p>
+                <p>💰 開放世界自由度極高，線上模式持續更新</p>
+                <p>🏆 多項年度遊戲大獎得主</p>
+                <span class="badge">全球暢銷</span>
+                <span class="badge">長青遊戲</span>
+                <p class="price">NT$ 899</p>
+            </div>
+
+            <div class="card">
+                <h3>⚔️ 隻狼：暗影雙死</h3>
+                <p><strong>精選理由：</strong>2019 年度遊戲 GOTY</p>
+                <p>📊 <strong>評分：</strong>Metacritic 90/100</p>
+                <p>🎮 <strong>類型：</strong>動作冒險 / 魂系遊戲</p>
+                <p>🗾 日本戰國時代背景，獨特忍者動作</p>
+                <p>🏆 TGA 2019 年度遊戲獎</p>
+                <span class="badge">獲獎無數</span>
+                <span class="badge">硬核動作</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="card">
+                <h3>🧟 最後生還者</h3>
+                <p><strong>精選理由：</strong>史上最佳劇情遊戲之一</p>
+                <p>📊 <strong>評分：</strong>Metacritic 95/100</p>
+                <p>🎮 <strong>類型：</strong>動作冒險 / 生存恐怖</p>
+                <p>🎬 電影級敘事，深刻人性探討</p>
+                <p>🏆 超過 200 個遊戲獎項</p>
+                <span class="badge">神作</span>
+                <span class="badge">完美劇情</span>
+                <p class="price">NT$ 1,990</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 3rem;">
+            <h3>🎯 為什麼這些是精選遊戲？</h3>
+            <p>✨ <strong>GTA V</strong> - 史上最暢銷遊戲之一，至今仍是線上遊戲熱門選擇</p>
+            <p>⚔️ <strong>隻狼</strong> - FromSoftware 巔峰之作，獲得無數年度遊戲大獎</p>
+            <p>🧟 <strong>最後生還者</strong> - 重新定義遊戲敘事標準，影響整個遊戲產業</p>
+        </div>
+    </div>
+
+    <!-- SWITCH GAMES -->
+    <div id="switch" class="page">
+        <h2 class="section-title">🎮 SWITCH GAMES 專區</h2>
+
+        <div class="game-list">
+            <div class="game-item">
+                <h4>薩爾達傳說：王國之淚</h4>
+                <p>開放世界冒險傑作</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,890</p>
+            </div>
+
+            <div class="game-item">
+                <h4>超級瑪利歐兄弟 驚奇</h4>
+                <p>全新 2D 瑪利歐冒險</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>寶可夢 朱/紫</h4>
+                <p>第九世代寶可夢</p>
+                <span class="special-tag">雙版本</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>斯普拉遁 3</h4>
+                <p>多人射擊對戰</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>動物森友會</h4>
+                <p>療癒生活模擬</p>
+                <span class="badge">長青遊戲</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>任天堂明星大亂鬥 特別版</h4>
+                <p>經典格鬥遊戲</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,990</p>
+            </div>
+
+            <div class="game-item">
+                <h4>瑪利歐賽車 8 豪華版</h4>
+                <p>闔家歡樂競速</p>
+                <span class="badge">熱門</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>星之卡比 探索發現</h4>
+                <p>3D 冒險新體驗</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>路易吉洋樓 3</h4>
+                <p>鬼屋冒險解謎</p>
+                <span class="badge">推薦</span>
+                <p class="price">NT$ 1,790</p>
+            </div>
+
+            <div class="game-item">
+                <h4>火焰之紋章 Engage</h4>
+                <p>策略 RPG 大作</p>
+                <span class="special-tag">限定特典</span>
+                <p class="price">NT$ 1,890</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 3rem;">
+            <h3>🎁 限定特典說明</h3>
+            <p>🌟 購買標示「限定特典」的遊戲，即可獲得：</p>
+            <p>📦 特製遊戲收藏盒</p>
+            <p>🎨 獨家遊戲美術設定集</p>
+            <p>🎵 原聲帶音樂 CD</p>
+            <p>🏅 限量遊戲徽章或貼紙組</p>
+            <p style="margin-top: 1rem; color: #fbbf24;">⚠️ 數量有限，售完為止！</p>
+        </div>
+    </div>
+
+    <!-- 遊戲、主機周邊 -->
+    <div id="peripherals" class="page">
+        <h2 class="section-title">🖥️ 遊戲主機與周邊</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>🎮 PlayStation 4</h3>
+                <p><strong>價格區間：</strong>NT$ 8,000 - 12,000</p>
+                <p>✓ PS4 主機（標準版/Pro）</p>
+                <p>✓ DualShock 4 無線控制器</p>
+                <p>✓ PlayStation Camera</p>
+                <p>✓ 各式主題手把顏色</p>
+                <span class="badge">經典主機</span>
+            </div>
+
+            <div class="card">
+                <h3>🎯 PlayStation 5</h3>
+                <p><strong>價格區間：</strong>NT$ 15,000 - 18,000</p>
+                <p>✓ PS5 主機（光碟版/數位版）</p>
+                <p>✓ DualSense 無線控制器</p>
+                <p>✓ PULSE 3D 無線耳機組</p>
+                <p>✓ HD 攝影機</p>
+                <p>✓ 媒體遙控器</p>
+                <span class="badge">次世代</span>
+                <span class="badge">熱門</span>
+            </div>
+
+            <div class="card">
+                <h3>🔵 Nintendo Switch</h3>
+                <p><strong>價格區間：</strong>NT$ 9,000 - 11,000</p>
+                <p>✓ Switch 主機（OLED/標準版）</p>
+                <p>✓ Switch Lite 掌機版</p>
+                <p>✓ Joy-Con 控制器（多色）</p>
+                <p>✓ Pro 控制器</p>
+                <p>✓ 各式保護殼與收納包</p>
+                <span class="badge">攜帶方便</span>
+            </div>
+
+            <div class="card">
+                <h3>🆕 Nintendo Switch 2</h3>
+                <p><strong>價格區間：</strong>NT$ 12,000 - 15,000</p>
+                <p>✓ 新一代 Switch 主機</p>
+                <p>✓ 升級版 Joy-Con</p>
+                <p>✓ 增強效能與畫質</p>
+                <p>✓ 向下相容 Switch 遊戲</p>
+                <p>✓ 全新配件系列</p>
+                <span class="special-tag">最新上市</span>
+                <span class="badge">預購中</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <h2 class="section-title">🎧 精選周邊配件</h2>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>🎧 SONY PULSE 3D 無線耳機組</h3>
+                    <p>✓ 專為 PS5 3D 音效設計</p>
+                    <p>✓ 雙降噪麥克風</p>
+                    <p>✓ 無線 + 有線雙模式</p>
+                    <p>✓ 舒適耳罩設計</p>
+                    <span class="badge">PS5 專用</span>
+                    <p class="price">NT$ 3,180</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎧 SteelSeries Arctis 7+</h3>
+                    <p>✓ 跨平台兼容性</p>
+                    <p>✓ 30 小時電池續航</p>
+                    <p>✓ ClearCast 降噪麥克風</p>
+                    <p>✓ USB-C 快速充電</p>
+                    <span class="badge">多平台</span>
+                    <p class="price">NT$ 5,490</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎧 Razer Kraken V3 X</h3>
+                    <p>✓ Razer TriForce 40mm 驅動單元</p>
+                    <p>✓ 7.1 環繞音效</p>
+                    <p>✓ 超輕量設計 285g</p>
+                    <p>✓ 降噪麥克風</p>
+                    <span class="badge">電競</span>
+                    <p class="price">NT$ 2,290</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 DualSense Edge 控制器</h3>
+                    <p>✓ 可自訂按鍵配置</p>
+                    <p>✓ 可更換搖桿蓋與背鍵</p>
+                    <p>✓ 可調整扳機行程</p>
+                    <p>✓ 附贈收納盒</p>
+                    <span class="badge">專業級</span>
+                    <p class="price">NT$ 6,280</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 Xbox Elite 無線控制器 Series 2</h3>
+                    <p>✓ 可調整搖桿張力</p>
+                    <p>✓ 可更換搖桿與十字鍵</p>
+                    <p>✓ 40 小時電池續航</p>
+                    <p>✓ 附背部撥片</p>
+                    <span class="badge">高階</span>
+                    <p class="price">NT$ 5,980</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 Nintendo Switch Pro 控制器</h3>
+                    <p>✓ HD 震動與 NFC 功能</p>
+                    <p>✓ 40 小時電池續航</p>
+                    <p>✓ 人體工學握把設計</p>
+                    <p>✓ 陀螺儀感應</p>
+                    <span class="badge">官方</span>
+                    <p class="price">NT$ 2,180</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 8BitDo Ultimate 藍牙控制器</h3>
+                    <p>✓ Switch / PC / Android 通用</p>
+                    <p>✓ 霍爾效應搖桿</p>
+                    <p>✓ 機械按鍵</p>
+                    <p>✓ 充電底座</p>
+                    <span class="badge">跨平台</span>
+                    <p class="price">NT$ 2,690</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎧 HyperX Cloud Alpha Wireless</h3>
+                    <p>✓ 300 小時超長續航</p>
+                    <p>✓ 50mm 驅動單元</p>
+                    <p>✓ DTS Headphone:X 空間音效</p>
+                    <p>✓ 可拆式麥克風</p>
+                    <span class="badge">長效</span>
+                    <p class="price">NT$ 5,990</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎧 Logitech G PRO X 2 LIGHTSPEED</h3>
+                    <p>✓ 專業電競級</p>
+                    <p>✓ 50mm 石墨烯驅動單元</p>
+                    <p>✓ Blue VO!CE 麥克風技術</p>
+                    <p>✓ 50 小時續航</p>
+                    <span class="badge">職業</span>
+                    <p class="price">NT$ 7,490</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 Scuf Reflex Pro</h3>
+                    <p>✓ PS5 專業競技手把</p>
+                    <p>✓ 四個可移除背鍵</p>
+                    <p>✓ 可調式扳機系統</p>
+                    <p>✓ 自訂面板顏色</p>
+                    <span class="badge">客製化</span>
+                    <p class="price">NT$ 8,990</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎧 Turtle Beach Stealth Pro</h3>
+                    <p>✓ 主動降噪（ANC）</p>
+                    <p>✓ 雙電池系統</p>
+                    <p>✓ 藍牙 5.1 + 2.4GHz 無線</p>
+                    <p>✓ 多平台支援</p>
+                    <span class="badge">旗艦</span>
+                    <p class="price">NT$ 10,990</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 Hori Fighting Commander OCTA</h3>
+                    <p>✓ 格鬥遊戲專用</p>
+                    <p>✓ 機械式按鍵</p>
+                    <p>✓ 6 鍵配置</p>
+                    <p>✓ PS5 / PS4 / PC 通用</p>
+                    <span class="badge">格鬥</span>
+                    <p class="price">NT$ 3,980</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('nav a').forEach(a => a.style.background = '');
+                link.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            });
+        });
+    </script>
+</body>
+</html>
